@@ -7,7 +7,7 @@ public class UtilityClass {
     private void UtilityClass() {
     }
 
-    public static <N> HashSet<N> union(HashSet<N>set1, HashSet<N>set2){
+    public static <N> HashSet<N> union(HashSet<N>set1, HashSet<N>set2) {
         HashSet<N> union = new HashSet<>(set1);
         union.addAll(set2);
         return union;
