@@ -1,60 +1,38 @@
 package MathOperationBody;
 
 import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class UtilityClass {
 
-    private HashSet<Integer> set1;
-    private HashSet<Integer> set2;
-
-    public void UtilityClass(HashSet<Integer> set1, HashSet<Integer> set2) {
-        this.set1 = set1;
-        this.set2 = set2;
+    private void UtilityClass() {
     }
 
-    public static void Union(HashSet<Integer>set1, HashSet<Integer>set2){
-
-        Set<Integer> union = Stream.concat(set1.stream(), set2.stream()).collect(Collectors.toSet());
+    public static <N> HashSet<N> union(HashSet<N>set1, HashSet<N>set2){
+        HashSet<N> union = new HashSet<>(set1);
+        union.addAll(set2);
+        return union;
     }
 
-    public static void Intersect(HashSet<Integer>set1, HashSet<Integer>set2) {
-
-        Set<Integer> intersect = set1.stream().filter(set2::contains).collect(Collectors.toSet());
+    public static <N> HashSet<N> intersect(HashSet<N>set1, HashSet<N>set2) {
+        HashSet<N> intersect = new HashSet<>(set1);
+        intersect.retainAll(set2);
+        return intersect;
     }
 
-    public static void Minus(HashSet<Integer>set1, HashSet<Integer>set2){
-
-        Set<Integer> minus = set1.stream().filter(set2::contains).collect(Collectors.toSet());
+    public static <N> HashSet<N> minus(HashSet<N>set1, HashSet<N>set2){
+        HashSet<N> minus = new HashSet<>(set1);
+        minus.removeAll(set2);
+        return minus;
     }
 
-    public static void Difference(Set<Integer> getSet1, Set<Integer> getSet2) {
-        Set differenceSet = new HashSet<>(getSet1);
-        differenceSet.removeAll(getSet2);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof UtilityClass)) return false;
-        UtilityClass that = (UtilityClass) o;
-        return set1.equals(that.set1) && set2.equals(that.set2);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(set1, set2);
-    }
-
-    @Override
-    public String toString() {
-        return "UtilityClass{" +
-                "set1=" + set1 +
-                ", set2=" + set2 +
-                '}';
+    public static <N> HashSet<N> difference(HashSet<N> set1, HashSet<N> set2) {
+        HashSet<N> union = new HashSet<>(set1);
+        HashSet<N> intersection = new HashSet<>(set1);
+        union.addAll(set2);
+        intersection.retainAll(set2);
+        HashSet<N> difference = new HashSet<>(union);
+        difference.removeAll(intersection);
+        return difference;
     }
 }
 
